@@ -1,0 +1,32 @@
+{
+  "name": "embedding-benchmark",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "bench": "tsx bench-embedder.mts",
+    "bench:transformers": "tsx bench-transformers.mts"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@huggingface/transformers": "^3.0.2",
+    "@langchain/community": "^0.3.15",
+    "@langchain/core": "^0.3.18",
+    "@langchain/ollama": "^0.1.2",
+    "cheerio": "^1.0.0",
+    "faiss-node": "^0.5.1",
+    "mitata": "^1.0.10",
+    "node-llama-cpp": "^3.2.0",
+    "ollama": "^0.5.9",
+    "pdf-parse": "^1.1.1",
+    "serialize-error": "^11.0.3",
+    "workerpool": "^9.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.8",
+    "tsx": "^4.19.2",
+    "typescript": "^5.5.2"
+  }
+}

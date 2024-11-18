@@ -10,7 +10,10 @@ When trying to make an app with embeddings involved, I quickly noticed a bottlen
 Benchmark consists in 4 concurrent queries for the same text that may or may not be parallelized under the form of a worker thread in NodeJS.
 
 ## Run
-Download the model first: [mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1/resolve/main/onnx/model_quantized.onnx)
+Download the models first:
+[mxbai-embed-large-v1](https://huggingface.co/mixedbread-ai/mxbai-embed-large-v1/resolve/main/onnx/model_quantized.onnx)
+[mxbai-embed-large-v1.Q8_0.gguf](https://huggingface.co/ChristianAzinn/mxbai-embed-large-v1-gguf/resolve/main/mxbai-embed-large-v1.Q8_0.gguf)
+
 Library benchmark: `npm run bench`
 Transformer benchmark: `npm run bench:transformer`
 
@@ -72,10 +75,10 @@ What we can learn here:
 
 - Making many workers is useless (and gives worst results with every kind of ONNXRuntime based libraries)
 - Onnx web on nodejs using wasm has catastrophic performance and cannot be used in a worker
-- 
+- LlamaCPP is often praised for performance, but this is not clearly visible in this benchmark (even though the model should be quantized in Q8). Also note that adding or not threads does not impact benchmark results
 
-### further notes
-While transformer.js is the best in this benchmark, the following results from transformer benchmark (`bench-transformer.mts`) show that parallelization does not happen inside transformers and onnx-runtime libraries:
+### Further notes
+While transformer.js is the best in this benchmark, the following results from transformer benchmark (`bench-transformer.mts`) show that parallelization does not happen inside transformers and onnx-runtime libraries, with runtime for 4 concurrent tasks being 4x one task:
 
 ```
 cpu: Intel(R) Core(TM) i9-9880H CPU @ 2.30GHz
@@ -110,10 +113,6 @@ onnx Node               445.00 ms/iter 474.24 ms        █          █
 ```
 
 It probably means that optimizations could still happen, even though we need to have in mind that given the size of LLMs, these libraries probably optimized the RAM usage way more than the CPU efficiency.
-
-## Interpretation
-
-Based on the limited knowledge I have, I went throught a few hypothesis
 
 ## Limitations
 
